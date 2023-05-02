@@ -14,7 +14,7 @@ export class CreateUserDto {
   @MaxLength(20, {
     message: 'First name must be less than 20 characters long.',
   })
-  fistName: string;
+  firstName: string;
 
   @IsString()
   @MinLength(2, { message: 'Last name must be at least 2 characters long.' })
