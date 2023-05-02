@@ -24,7 +24,6 @@ export class UserService {
       });
 
       delete user.password;
-      // return the save user
 
       return { data };
     } catch (error) {
