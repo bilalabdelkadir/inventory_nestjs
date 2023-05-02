@@ -28,7 +28,7 @@ model User {
   createAt  DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   Product   Product[]
-  role      Role
+  role      Role      @default(CUSTOMER)
   Order     Order[]
 }
 
