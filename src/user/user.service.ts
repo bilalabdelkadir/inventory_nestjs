@@ -2,11 +2,12 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { MailService } from 'src/mail/mail.service';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private mail: MailService) {}
   async createUser(data: CreateUserDto) {
     // generate the hash
     const hash = await bcrypt.hash(data.password, 10);
@@ -22,6 +23,8 @@ export class UserService {
           role: data.role,
         },
       });
+
+      this.mail.sendWelcomeMessage(data.email, data.firstName);
 
       delete user.password;
 
